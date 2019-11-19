@@ -75,7 +75,7 @@ Logical grouping of transform-streams in series: [encapsulate-streams](https://g
 
 ▸ **fanoutStreams**(...streams: *`Writable`[]*): `Writable`
 
-*Defined in fanout-streams.ts:19*
+*Defined in [fanout-streams.ts:19](https://github.com/EricCrosson/fanout-streams/blob/40d316b/src/fanout-streams.ts#L19)*
 
 Return a single writable stream that fans received chunks out to each input-stream.
 
