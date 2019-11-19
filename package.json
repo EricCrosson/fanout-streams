@@ -1,6 +1,6 @@
 {
   "name": "fanout-streams",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Logical grouping of writable-streams in parallel ",
   "main": "dist/src/fanout-streams.js",
   "types": "dist/src/fanout-streams.d.ts",
