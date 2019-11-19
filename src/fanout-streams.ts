@@ -6,12 +6,6 @@
 import { Readable, Writable } from 'readable-stream'
 
 
-interface StreamLike {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    push: (chunk: any, encoding?: string) => void;
-    pipe: <T extends Writable>(destination: T, options?: { end?: boolean | undefined } | undefined) => T;
-}
-
 /**
  * Return a single writable stream that fans received chunks out to
  * each input-stream.
@@ -24,12 +18,17 @@ export default function fanoutStreams(
         return streams[0]
     }
 
-    const publisher: StreamLike = streams.length === 0
-        ? {
-            push: () => {},
-            pipe: (a) => a
-        }
-        : new Readable({objectMode: true, read() {}})
+    if (streams.length === 0) {
+        return new Writable({
+            objectMode: true,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            write(_: any, __: string, callback: (error?: Error | null) => void) {
+                callback()
+            }
+        })
+    }
+
+    const publisher = new Readable({objectMode: true, read() {}})
 
     const sink = new Writable({
         objectMode: true,
